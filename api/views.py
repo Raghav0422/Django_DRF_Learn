@@ -58,16 +58,23 @@ def studentDetailsView(request,pk):
         student.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-#BELOW CLASS IS CBV WITH MIXINS TO VIEW ALL EMPLOYEE DATA
-class EmployeeView(mixins.ListModelMixin, mixins.CreateModelMixin,generics.GenericAPIView):
+
+#BELOW CLASS IS CBV WITH GENERTICS TO VIEW ALL EMPLOYEE DATA
+class EmployeeView(generics.ListCreateAPIView):
     queryset=EmployeeModel.objects.all()
     serializer_class=EmployeeSerializer
 
-    def get(self,request):
-        return self.list(request)
 
-    def post(self,request):
-        return self.create(request)
+#BELOW CLASS IS CBV WITH MIXINS TO VIEW ALL EMPLOYEE DATA
+# class EmployeeView(mixins.ListModelMixin, mixins.CreateModelMixin,generics.GenericAPIView):
+#     queryset=EmployeeModel.objects.all()
+#     serializer_class=EmployeeSerializer
+
+#     def get(self,request):
+#         return self.list(request)
+
+#     def post(self,request):
+#         return self.create(request)
 
 
 
@@ -85,19 +92,27 @@ class EmployeeView(mixins.ListModelMixin, mixins.CreateModelMixin,generics.Gener
 #             return Response(serializer.data,status=status.HTTP_201_CREATED)
 #         return Response(serializer.error,status=status.HTTP_400_BAD_REQUEST)
 
-#BELOW CLASS IS CBV WITH MIXINS TO VIEW SINGLE EMPLOYEE DATA
-class EmployeeDetailsView(mixins.RetrieveModelMixin,mixins.UpdateModelMixin,mixins.DestroyModelMixin,generics.GenericAPIView):
+
+#BELOW CLASS IS CBV WITH GENERICS TO VIEW UPDATE DELETE SINGLE EMPOYEE DATA
+class EmployeeDetailsView(generics.RetrieveUpdateDestroyAPIView):
     queryset=EmployeeModel.objects.all()
     serializer_class=EmployeeSerializer
+    lookup_field='pk'
 
-    def get(self,request,pk):
-        return self.retrieve(request,pk)
 
-    def put(self,request,pk):
-        return self.update(request,pk)
+#BELOW CLASS IS CBV WITH MIXINS TO VIEW UPDATE DELETE SINGLE EMPLOYEE DATA
+# class EmployeeDetailsView(mixins.RetrieveModelMixin,mixins.UpdateModelMixin,mixins.DestroyModelMixin,generics.GenericAPIView):
+#     queryset=EmployeeModel.objects.all()
+#     serializer_class=EmployeeSerializer
 
-    def delete(self,request,pk):
-        return self.destroy(request,pk)
+#     def get(self,request,pk):
+#         return self.retrieve(request,pk)
+
+#     def put(self,request,pk):
+#         return self.update(request,pk)
+
+#     def delete(self,request,pk):
+#         return self.destroy(request,pk)
 
 #BELOW CLASS IS DONE TO Get UPDATE DELETE SINGLE EMPLOYEE DATA ON THE BASISC OF CBV
 # class EmployeeDetailsView(APIView):

@@ -4,9 +4,12 @@ from django.http import Http404
 
 from students.models import Student
 from employee.models import EmployeeModel
+from blogs.models import BlogModel,CommentModel
 
 from .serializers import StudentSerializer
 from .serializers import EmployeeSerializer
+from blogs.serializers import (BlogSerializer , BlogSerializerWithComments,
+                             CommentSerializer)
 
 from rest_framework.response import Response
 from rest_framework import status
@@ -16,9 +19,32 @@ from rest_framework import mixins
 from rest_framework import generics
 from rest_framework import viewsets
 
-
-
 # Create your views here.
+
+#BELOW VIEW IS FOR BLOGS APP
+class BlogView(generics.ListCreateAPIView):
+    queryset=BlogModel.objects.all()
+    serializer_class=BlogSerializer
+
+class BlogViewWithComments(generics.ListCreateAPIView):
+    queryset=BlogModel.objects.all()
+    serializer_class=BlogSerializerWithComments
+
+class BlogViewDetails(generics.RetrieveUpdateDestroyAPIView):
+    queryset=BlogModel.objects.all()
+    serializer_class=BlogSerializer
+    lookup_field='pk'
+
+class CommentView(generics.ListCreateAPIView):
+    queryset=CommentModel.objects.all()
+    serializer_class = CommentSerializer
+
+class CommentViewDetails(generics.RetrieveUpdateDestroyAPIView):
+    queryset=CommentModel.objects.all()
+    serializer_class = CommentSerializer    
+    lookup_field='pk'
+
+
 # def studentView(request):
 #     student=Student.objects.all()
 #     student_list=list(student.values())

@@ -14,7 +14,7 @@ class BlogSerializerWithComments(serializers.ModelSerializer):
         fields='__all__'
 
 class BlogSerializer(serializers.ModelSerializer):
-    comments = CommentSerializer(many=True, read_only=True)
+    # comments = CommentSerializer(many=True, read_only=True)
     class Meta:
         model=BlogModel
         fields='__all__'

@@ -6,6 +6,8 @@ from students.models import Student
 from employee.models import EmployeeModel
 from blogs.models import BlogModel,CommentModel
 
+from .paginations import CustomPagination
+
 from .serializers import StudentSerializer
 from .serializers import EmployeeSerializer
 from blogs.serializers import (BlogSerializer , BlogSerializerWithComments,
@@ -25,6 +27,8 @@ from rest_framework import viewsets
 class BlogView(generics.ListCreateAPIView):
     queryset=BlogModel.objects.all()
     serializer_class=BlogSerializer
+    print('inside blogview class')
+    pagination_class=CustomPagination
 
 class BlogViewWithComments(generics.ListCreateAPIView):
     queryset=BlogModel.objects.all()

@@ -20,5 +20,7 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('students/',include('students.urls')),
+    
+    #ALL URLS FOR EMPLOYEE , BLOGS LIES UNDER BELOW URL
     path('api/v1/',include('api.urls')),
 ]
